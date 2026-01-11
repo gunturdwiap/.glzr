@@ -1,0 +1,189 @@
+@import 'https://www.nerdfonts.com/assets/css/webfont.css';
+
+:root {
+    /* Sizes */
+    --text-size: 10px;
+    --icon-size: 10px;
+
+    /* Core Catppuccin Macchiato colors */
+    --rosewater: #f4dbd6;
+    --flamingo: #f0c6c6;
+    --pink: #f5bde6;
+    --mauve: #c6a0f6;
+    --red: #ed8796;
+    --maroon: #ee99a0;
+    --peach: #f5a97f;
+    --yellow: #eed49f;
+    --green: #a6da95;
+    --teal: #8bd5ca;
+    --sky: #91d7e3;
+    --sapphire: #7dc4e4;
+    --blue: #8aadf4;
+    --lavender: #b7bdf8;
+
+    --text: #cad3f5;
+    --subtext0: #a5adcb;
+    --overlay0: #6e738d;
+    --surface0: #363a4f;
+    --surface1: #494d64;
+    --surface2: #5b6078;
+    --base: #24273a;
+    --mantle: #1e2030;
+    --crust: #181926;
+
+    --glass-bg: color-mix(in srgb, var(--crust) 95%, transparent);
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    /* height: 100%; */
+    font-family: ui-monospace, monospace;
+    font-size: var(--text-size);
+    color: var(--text);
+    overflow: hidden;
+}
+
+#root {
+    background: var(--bg-translucent);
+    backdrop-filter: blur(8px);
+    /* border: 1px solid var(--blue); */
+    /* margin-top: 5px; */
+    margin-left: 5px;
+    margin-right: 5px;
+
+    border-radius: 8px;
+}
+
+i {
+    font-size: var(--icon-size);
+    margin-right: 7px;
+    color: var(--mauve);
+}
+
+.app {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    height: 100%;
+    padding: 4px 0.5vw;
+    /* padding-bottom: 0px; */
+    background: var(--glass-bg);
+    backdrop-filter: blur(28px) saturate(1.4) brightness(1.05);
+    -webkit-backdrop-filter: blur(28px) saturate(1.4) brightness(1.05);
+    border-radius: 0 0 8px 8px;
+}
+
+.left,
+.center,
+.right {
+    display: flex;
+    align-items: center;
+}
+
+.center {
+    justify-self: center;
+}
+
+.process {
+    text-transform: capitalize
+}
+
+.right {
+    justify-self: end;
+}
+
+.logo {
+    font-size: 16px;
+    color: var(--mauve);
+    margin-right: 10px;
+}
+
+.binding-mode,
+.tiling-direction,
+.paused-button,
+.network,
+.memory,
+.cpu,
+.media,
+.battery {
+    margin-right: 20px;
+}
+
+/* Apply the cursor to the children too, just in case */
+.media,
+.media * {
+    cursor: pointer;
+}
+
+.workspaces {
+    display: flex;
+    align-items: center;
+}
+
+.workspace {
+    background: var(--bg-translucent);
+    color: var(--text);
+    margin-right: 8px;
+    padding: 4px 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.workspace.displayed {
+    background: var(--lavender);
+}
+
+.workspace.focused,
+.workspace:hover {
+    background: var(--blue);
+    color: var(--crust);
+}
+
+.binding-mode,
+.tiling-direction,
+.paused-button {
+    background: var(--surface1);
+    color: var(--text);
+    border-radius: 4px;
+    line-height: 1;
+    padding: 4px 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.binding-mode {
+    margin-right: 4px;
+}
+
+.binding-mode:hover,
+.tiling-direction:hover,
+.paused-button:hover {
+    background: var(--surface2);
+}
+
+.cpu .high-usage {
+    color: var(--red);
+}
+
+.battery {
+    position: relative;
+}
+
+.battery .charging-icon {
+    position: absolute;
+    font-size: 7px;
+    left: -8px;
+    top: 3px;
+}
+
+div,
+span,
+p {
+    cursor: default;
+    user-select: none;
+}
