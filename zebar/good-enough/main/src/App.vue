@@ -28,6 +28,10 @@ const formattedFullDate = computed(() => {
 
 const activeMedia = computed(() => output.value.media?.currentSession);
 
+const onMediaAction = (action: 'previous' | 'togglePlayPause' | 'next') => {
+  providers.outputMap.media?.[action]();
+};
+
 const getBatteryIcon = (percent: number) => {
   if (percent >= 95) return "nf-md-battery";
   if (percent >= 85) return "nf-md-battery_90";
@@ -58,8 +62,7 @@ const toggleMedia = () => { isMediaHidden.value = !isMediaHidden.value; };
 </script>
 
 <template>
-  <div
-    class="bg-transparent flex font-mono items-center justify-between py-0.5 select-none text-[10px] text-ctp-subtext0 w-full">
+  <div class="bg-transparent flex items-center justify-between py-0.5 select-none text-[10px] text-ctp-subtext0 w-full">
 
     <div class="flex gap-2 items-center">
       <div class="bg-ctp-mantle border border-ctp-surface0 border-l-0 flex h-6 items-center px-3 rounded-r-sm">
@@ -81,17 +84,35 @@ const toggleMedia = () => { isMediaHidden.value = !isMediaHidden.value; };
 
     <div class="flex gap-2 h-6 items-center">
 
-      <div v-if="activeMedia?.isPlaying" @click="toggleMedia"
+      <div v-if="activeMedia" @click="toggleMedia"
         class="bg-ctp-mantle border border-ctp-surface0 cursor-pointer flex group h-full items-center px-3 rounded-sm hover:text-ctp-text">
-        <div class="flex gap-2 items-center whitespace-nowrap"
+
+        <div class="flex gap-3 items-center whitespace-nowrap"
           :class="isMediaHidden ? 'opacity-40 group-hover:opacity-100' : 'opacity-100'">
+
           <i class="mt-px nf nf-md-music_note text-ctp-lavender"></i>
+
+          <span class="border-l border-white h-2 mx-0.5 opacity-25" />
+
           <span v-if="!isMediaHidden" class="italic leading-none">
             {{ truncate(activeMedia.title, 40) }}
             <span class="mx-1 opacity-40">•</span>
             <span class="not-italic opacity-60">{{ truncate(activeMedia.artist, 30) }}</span>
           </span>
           <span v-else class="font-bold opacity-50 px-1 tracking-widest">•••</span>
+
+          <span class="border-l border-white h-2 mx-0.5 opacity-25" />
+
+          <div class="flex gap-2 text-ctp-subtext0">
+            <i @click.stop="onMediaAction('previous')"
+              class="nf nf-md-skip_previous text-[8px] hover:text-ctp-lavender transition-colors"></i>
+
+            <i @click.stop="onMediaAction('togglePlayPause')"
+              :class="['nf text-[8px] hover:text-ctp-lavender transition-colors', activeMedia.isPlaying ? 'nf-md-pause' : 'nf-md-play']"></i>
+
+            <i @click.stop="onMediaAction('next')"
+              class="nf nf-md-skip_next text-[8px] hover:text-ctp-lavender transition-colors"></i>
+          </div>
         </div>
       </div>
 

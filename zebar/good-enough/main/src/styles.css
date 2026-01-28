@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+body {
+    font-family: 'JetBrains Mono', monospace;
+}
+
 /* Catppuccin Macchiato Theme */
 @theme {
     --color-ctp-rosewater: #f4dbd6;
