@@ -1,12 +1,10 @@
 <script lang="ts" setup>
+import { type GlazeWmOutput } from "zebar";
 import Island from "./Island.vue";
 import Separator from "./Separator.vue";
 
 defineProps<{
-  glazewm: {
-    currentWorkspaces: { name: string; displayName?: string; hasFocus: boolean }[];
-    runCommand: (cmd: string) => void;
-  } | null;
+  glazewm: GlazeWmOutput | null;
 }>();
 </script>
 

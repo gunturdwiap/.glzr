@@ -1,9 +1,9 @@
-import { ref, watch, onUnmounted, type ComputedRef } from "vue";
-import type { MediaSession } from "zebar";
+import { onUnmounted, ref, watch, type ComputedRef } from "vue";
+import type { MediaOutput, MediaSession } from "zebar";
 
 export function useMediaPlayer(
-  activeMedia: ComputedRef<MediaSession | null | undefined>,
-  media: ComputedRef<{ togglePlayPause?: () => void; previous?: () => void; next?: () => void } | undefined>
+  activeMedia: ComputedRef<MediaSession | null>,
+  media: ComputedRef<MediaOutput | null>
 ) {
   const progress = ref(0);
   const isHidden = ref(false);
