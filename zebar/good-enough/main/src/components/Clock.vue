@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 import { computed } from "vue";
+import type { DateOutput } from "zebar";
 import Island from "./Island.vue";
 
 const CLOCK_STATES = { HIDDEN: 0, SHORT: 1, FULL: 2 } as const;
 
 const props = defineProps<{
-  date: { formatted: string; new: Date } | undefined;
+  date: DateOutput | null;
   state: number;
 }>();
 

@@ -6,7 +6,7 @@ import Island from "./Island.vue";
 import Separator from "./Separator.vue";
 
 const props = defineProps<{
-  mediaOutput: MediaOutput | undefined;
+  mediaOutput: MediaOutput | null;
 }>();
 
 const emit = defineEmits<{
@@ -18,13 +18,11 @@ const { progress, isHidden, onAction, truncate } = useMediaPlayer(
   activeMedia,
   computed(() => props.mediaOutput)
 );
-
-defineExpose({ toggle: () => emit('toggle') });
 </script>
 
 <template>
-  <Island v-if="activeMedia" position="center" class="relative cursor-pointer group px-3 hover:text-ctp-text overflow-hidden"
-    @click="emit('toggle')">
+  <Island v-if="activeMedia" position="center"
+    class="relative cursor-pointer group px-3 hover:text-ctp-text overflow-hidden" @click="emit('toggle')">
     <div class="flex gap-3 items-center whitespace-nowrap"
       :class="isHidden ? 'opacity-40 group-hover:opacity-100' : 'opacity-100'">
 

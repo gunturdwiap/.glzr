@@ -8,7 +8,6 @@ import SystemStats from "./components/SystemStats.vue";
 import Workspaces from "./components/Workspaces.vue";
 
 const providers = zebar.createProviderGroup({
-  network: { type: "network" },
   glazewm: { type: "glazewm" },
   date: { type: "date", formatting: "HH:mm" },
   battery: { type: "battery" },
@@ -18,7 +17,15 @@ const providers = zebar.createProviderGroup({
 });
 
 const output = shallowRef(providers.outputMap);
-const clockState = ref(0);
+
+const loadClockState = () => {
+  try {
+    const saved = localStorage.getItem('clockState');
+    return saved ? parseInt(saved, 10) : 0;
+  } catch { return 0; }
+};
+
+const clockState = ref(loadClockState());
 const isMediaHidden = ref(false);
 
 onMounted(() => {
@@ -27,10 +34,14 @@ onMounted(() => {
   });
 });
 
-const toggleClock = () => { clockState.value = (clockState.value + 1) % 3; };
+const toggleClock = () => {
+  clockState.value = (clockState.value + 1) % 3;
+  try {
+    localStorage.setItem('clockState', clockState.value.toString());
+  } catch { /* ignore */ }
+};
 const toggleMedia = () => { isMediaHidden.value = !isMediaHidden.value; };
 
-// const mediaPlayerRef = ref<InstanceType<typeof MediaPlayer> | null>(null);
 </script>
 
 <template>
@@ -41,17 +52,15 @@ const toggleMedia = () => { isMediaHidden.value = !isMediaHidden.value; };
         <i class="mt-px nf nf-fa-circle_notch text-[12px] text-ctp-blue"></i>
       </Island>
 
-      <Workspaces :glazewm="output.glazewm ?? null" />
+      <Workspaces :glazewm="output.glazewm" />
     </div>
 
     <div class="flex gap-2 h-6 items-center">
-      <MediaPlayer ref="mediaPlayerRef" :media-output="output.media ?? undefined" @toggle="toggleMedia"
-        v-show="!isMediaHidden" />
+      <MediaPlayer :media-output="output.media" @toggle="toggleMedia" v-show="!isMediaHidden" />
 
-      <SystemStats :cpu="output.cpu ?? undefined" :memory="output.memory ?? undefined"
-        :battery="output.battery ?? undefined" />
+      <SystemStats :cpu="output.cpu" :memory="output.memory" :battery="output.battery" />
 
-      <Clock :date="output.date ?? undefined" :state="clockState" @toggle="toggleClock" />
+      <Clock :date="output.date" :state="clockState" @toggle="toggleClock" />
     </div>
   </div>
 </template>

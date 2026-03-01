@@ -1,11 +1,12 @@
 <script lang="ts" setup>
+import type { BatteryOutput, CpuOutput, MemoryOutput } from "zebar";
 import Island from "./Island.vue";
 import Separator from "./Separator.vue";
 
 defineProps<{
-  cpu?: { usage: number };
-  memory?: { usage: number };
-  battery?: { isCharging: boolean; chargePercent: number };
+  cpu: CpuOutput | null;
+  memory: MemoryOutput | null;
+  battery: BatteryOutput | null;
 }>();
 
 const pad = (val?: number) => Math.round(val ?? 0).toString().padStart(2, '0');
