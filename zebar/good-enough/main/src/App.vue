@@ -37,7 +37,7 @@ const toggleMedia = () => { isMediaHidden.value = !isMediaHidden.value; };
   <div class="bg-transparent flex items-center justify-between py-0.5 select-none text-[10px] text-ctp-subtext0 w-full">
 
     <div class="flex gap-2 items-center">
-      <Island class="border-l-0 px-3 rounded-r-sm">
+      <Island position="left" class="px-3">
         <i class="mt-px nf nf-fa-circle_notch text-[12px] text-ctp-blue"></i>
       </Island>
 

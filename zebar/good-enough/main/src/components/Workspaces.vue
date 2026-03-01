@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import Island from "./Island.vue";
+import Separator from "./Separator.vue";
 
 defineProps<{
   glazewm: {
@@ -10,14 +11,14 @@ defineProps<{
 </script>
 
 <template>
-  <Island v-if="glazewm" class="px-1 rounded-sm">
+  <Island v-if="glazewm" position="center" class="px-0.5">
     <template v-for="(ws, index) in glazewm.currentWorkspaces" :key="ws.name">
       <button @click="glazewm.runCommand(`focus --workspace ${ws.name}`)" :disabled="ws.hasFocus"
-        class="border-b flex h-full items-center"
+        class="border-b flex h-full items-center px-2"
         :class="ws.hasFocus ? 'border-ctp-blue text-ctp-blue' : 'cursor-pointer border-transparent hover:border-ctp-subtext0 hover:text-ctp-text'">
-        <span class="font-bold px-2 tracking-tighter uppercase">{{ ws.displayName ?? ws.name }}</span>
+        <span class="font-bold tracking-tighter uppercase">{{ ws.displayName ?? ws.name }}</span>
       </button>
-      <span v-if="index < glazewm.currentWorkspaces.length - 1" class="border-l border-white h-2 mx-0.5 opacity-25" />
+      <Separator v-if="index < glazewm.currentWorkspaces.length - 1" />
     </template>
   </Island>
 </template>

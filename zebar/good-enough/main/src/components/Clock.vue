@@ -23,10 +23,10 @@ const formattedFullDate = computed(() => {
 </script>
 
 <template>
-  <Island @click="emit('toggle')" class="border-r-0 cursor-pointer group px-4 rounded-l-sm hover:text-ctp-text">
+  <Island position="right" class="cursor-pointer group px-3 hover:text-ctp-text" @click="emit('toggle')">
     <div class="flex items-center whitespace-nowrap"
       :class="state === CLOCK_STATES.HIDDEN ? 'opacity-40 group-hover:opacity-100' : 'opacity-100'">
-      <i class="mt-px nf nf-fa-clock font-bold"></i>
+      <i class="nf nf-fa-clock font-bold text-[12px]"></i>
       <span v-if="state !== CLOCK_STATES.HIDDEN" class="font-bold leading-none ml-2 tracking-tight">
         {{ state === CLOCK_STATES.SHORT ? date?.formatted : formattedFullDate }}
       </span>

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import Island from "./Island.vue";
+import Separator from "./Separator.vue";
 
 defineProps<{
   cpu?: { usage: number };
@@ -25,13 +26,13 @@ const getBatteryIcon = (percent: number) => {
 </script>
 
 <template>
-  <Island class="cursor-default gap-3 px-3 rounded-sm">
+  <Island position="center" class="gap-2 px-2.5">
     <div class="flex gap-1.5 items-center tracking-tighter uppercase">
       <i class="mt-px nf nf-oct-cpu"></i>
       <span class="font-bold tabular-nums">{{ pad(cpu?.usage) }}</span>
     </div>
 
-    <span class="border-l border-white h-2 mx-0.5 opacity-25" />
+    <Separator />
 
     <div class="flex gap-1.5 items-center tracking-tighter uppercase">
       <i class="mt-px nf nf-md-chip"></i>
@@ -39,7 +40,7 @@ const getBatteryIcon = (percent: number) => {
     </div>
 
     <template v-if="battery">
-      <span class="border-l border-white h-2 mx-0.5 opacity-25" />
+      <Separator />
       <div class="flex gap-1.5 items-center tracking-tighter uppercase"
         :class="battery.isCharging ? 'text-ctp-green' : battery.chargePercent < 20 ? 'text-ctp-red' : ''">
         <i :class="['nf', battery.isCharging ? 'nf-md-battery_charging' : getBatteryIcon(battery.chargePercent)]"></i>

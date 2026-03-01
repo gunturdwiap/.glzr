@@ -3,6 +3,7 @@ import { computed } from "vue";
 import type { MediaOutput } from "zebar";
 import { useMediaPlayer } from "../composables/useMediaPlayer";
 import Island from "./Island.vue";
+import Separator from "./Separator.vue";
 
 const props = defineProps<{
   mediaOutput: MediaOutput | undefined;
@@ -13,22 +14,22 @@ const emit = defineEmits<{
 }>();
 
 const activeMedia = computed(() => props.mediaOutput?.currentSession ?? null);
-const { progress, isHidden, toggle, onAction, truncate } = useMediaPlayer(
+const { progress, isHidden, onAction, truncate } = useMediaPlayer(
   activeMedia,
   computed(() => props.mediaOutput)
 );
 
-defineExpose({ toggle });
+defineExpose({ toggle: () => emit('toggle') });
 </script>
 
 <template>
-  <Island v-if="activeMedia" @click="emit('toggle')"
-    class="relative cursor-pointer group px-3 rounded-sm hover:text-ctp-text overflow-hidden">
+  <Island v-if="activeMedia" position="center" class="relative cursor-pointer group px-3 hover:text-ctp-text overflow-hidden"
+    @click="emit('toggle')">
     <div class="flex gap-3 items-center whitespace-nowrap"
       :class="isHidden ? 'opacity-40 group-hover:opacity-100' : 'opacity-100'">
 
       <i class="mt-px nf nf-md-music_note text-ctp-lavender"></i>
-      <span class="border-l border-white h-2 mx-0.5 opacity-25" />
+      <Separator />
 
       <span v-if="!isHidden" class="italic leading-none">
         {{ truncate(activeMedia.title, 40) }}
@@ -37,7 +38,7 @@ defineExpose({ toggle });
       </span>
       <span v-else class="font-bold opacity-50 px-1 tracking-widest">•••</span>
 
-      <span class="border-l border-white h-2 mx-0.5 opacity-25" />
+      <Separator />
 
       <div class="flex gap-2 text-ctp-subtext0">
         <i @click.stop="onAction('previous')"
