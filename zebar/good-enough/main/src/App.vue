@@ -41,6 +41,7 @@ const toggleClock = () => {
   } catch { /* ignore */ }
 };
 const toggleMedia = () => { isMediaHidden.value = !isMediaHidden.value; };
+
 </script>
 
 <template>
