@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import type { MediaOutput } from "zebar";
 import { useMediaPlayer } from "../composables/useMediaPlayer";
 import Island from "./Island.vue";
@@ -9,20 +9,20 @@ const props = defineProps<{
   mediaOutput: MediaOutput | null;
 }>();
 
-const emit = defineEmits<{
-  toggle: [];
-}>();
+const isHidden = ref(false);
 
 const activeMedia = computed(() => props.mediaOutput?.currentSession ?? null);
-const { progress, isHidden, onAction, truncate } = useMediaPlayer(
+const { progress, onAction, truncate } = useMediaPlayer(
   activeMedia,
   computed(() => props.mediaOutput)
 );
+
+const toggle = () => { isHidden.value = !isHidden.value; };
 </script>
 
 <template>
   <Island v-if="activeMedia" position="center"
-    class="relative cursor-pointer group px-3 hover:text-ctp-text overflow-hidden" @click="emit('toggle')">
+    class="relative cursor-pointer group px-3 hover:text-ctp-text overflow-hidden" @click="toggle">
     <div class="flex gap-3 items-center whitespace-nowrap"
       :class="isHidden ? 'opacity-40 group-hover:opacity-100' : 'opacity-100'">
 

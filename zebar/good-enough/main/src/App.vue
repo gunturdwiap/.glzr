@@ -26,7 +26,6 @@ const loadClockState = () => {
 };
 
 const clockState = ref(loadClockState());
-const isMediaHidden = ref(false);
 
 onMounted(() => {
   providers.onOutput(() => {
@@ -40,14 +39,14 @@ const toggleClock = () => {
     localStorage.setItem('clockState', clockState.value.toString());
   } catch { /* ignore */ }
 };
-const toggleMedia = () => { isMediaHidden.value = !isMediaHidden.value; };
 
 </script>
 
 <template>
-  <div class="bg-transparent flex items-center justify-between py-0.5 select-none text-[10px] text-ctp-subtext0 w-full">
+  <div
+    class="bg-transparent flex items-center justify-between pt-0.5 pb-1 select-none text-[10px] text-ctp-subtext0 w-full">
 
-    <div class="flex gap-2 items-center">
+    <div class="flex gap-1 items-center">
       <Island position="left" class="px-3">
         <i class="mt-px nf nf-fa-circle_notch text-[12px] text-ctp-blue"></i>
       </Island>
@@ -55,8 +54,8 @@ const toggleMedia = () => { isMediaHidden.value = !isMediaHidden.value; };
       <Workspaces :glazewm="output.glazewm" />
     </div>
 
-    <div class="flex gap-2 h-6 items-center">
-      <MediaPlayer :media-output="output.media" @toggle="toggleMedia" v-show="!isMediaHidden" />
+    <div class="flex gap-1 h-6 items-center">
+      <MediaPlayer :media-output="output.media" />
 
       <SystemStats :cpu="output.cpu" :memory="output.memory" :battery="output.battery" />
 
