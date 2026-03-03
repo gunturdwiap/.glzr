@@ -1,17 +1,18 @@
 {
   "$schema": "https://github.com/glzr-io/zebar/raw/v3.1.1/resources/zpack-schema.json",
   "name": "good-enough",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "my minimal zebar",
   "tags": [
     "catppuccin",
-    "catppucin macchiato",
     "dark",
     "minimal",
     "blue"
   ],
   "previewImages": [
-    "resources\\good-enough.png"
+    "resources\\good-enough-3.png",
+    "resources\\good-enough-1.png",
+    "resources\\good-enough-2.png"
   ],
   "repositoryUrl": "https://github.com/gunturdwiap/.glzr",
   "widgets": [
